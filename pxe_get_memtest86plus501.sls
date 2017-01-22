@@ -7,8 +7,9 @@
     - enforce_toplevel: False
     - extract_perms: False
 
-/srv/tftp/sysimages:
+memtest_dir_create:
   file.directory:
+    - name: /srv/tftp/sysimages/memtest
     - user: root
     - group: root
     - mode: 755
@@ -17,6 +18,14 @@
       - user
       - group
       - mode
+
+/srv/tftp/bios/sysimages/memtest:
+  file.directory:
+    - user: root
+    - group: root
+    - mode: 755
+    - makedirs: True
+
 
 /srv/tftp/bios/pxelinux.cfg/default:
   file.blockreplace:

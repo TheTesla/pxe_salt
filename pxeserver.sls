@@ -15,21 +15,18 @@ nfs-kernel-server:
   service:
     - enabled
 
-/srv/tftp:
-  file.recurse:
-    - source: salt://bootfiles
+/srv/tftp/bios/sysimages:
+  file.directory:
     - user: root
     - group: root
-    - dir_mode: 755
-    - file_mode: 644
+    - mode: 755
     - makedirs: True
-    - include_empty: True
-cp -rf /usr/lib/syslinux/modules/bios /srv/tftp/.:
-  cmd.run
 /srv/tftp/bios/pxelinux.0:
   file.copy:
     - source: /usr/lib/PXELINUX/pxelinux.0
     - makedirs: True
+cp -rf /usr/lib/syslinux/modules/bios /srv/tftp/.:
+  cmd.run
 default_exists:
   file.touch:
     - name: /srv/tftp/bios/pxelinux.cfg/default
