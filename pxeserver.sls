@@ -46,3 +46,12 @@ default_exists:
         MENU TITLE Server PXE Boot Menu
 
 
+/etc/exports:
+  file.blockreplace:
+    - marker_start: "# START pxe directory"
+    - marker_end: "# END pxe directory"
+    - show_changes: True
+    - append_if_not_found: True
+    - content: |
+        /srv/tftp/sysimages    *(ro,subtree_check,no_root_squash,insecure)
+
