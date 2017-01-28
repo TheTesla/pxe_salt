@@ -53,5 +53,5 @@ default_exists:
     - show_changes: True
     - append_if_not_found: True
     - content: |
-        /srv/tftp/sysimages    *(ro,subtree_check,no_root_squash,insecure)
+        /srv/tftp/    *(ro,no_subtree_check,no_root_squash,insecure)
 
