@@ -17,6 +17,20 @@ nfs-kernel-server:
   service:
     - enabled
 
+{{ basepath }}/regex_tftpd:
+  file.managed:
+    - source: salt://regex_tftpd
+    - user: root
+    - group: root
+    - mode: 644
+
+/etc/default/tftpd-hpa:
+  file.managed:
+    - source: salt://tftpd-hpa.conf
+    - user: root
+    - group: root
+    - mode: 644
+
 {{ basepath }}/sysimages:
   file.directory:
     - user: root
