@@ -1,3 +1,5 @@
+{% set basepath = '/srv/tftp' %}
+
 syslinux:
   pkg:
     - installed
@@ -15,23 +17,23 @@ nfs-kernel-server:
   service:
     - enabled
 
-/srv/tftp/bios/sysimages:
+{{ basepath }}/sysimages:
   file.directory:
     - user: root
     - group: root
     - mode: 755
     - makedirs: True
-/srv/tftp/bios/pxelinux.0:
+{{ basepath }}/pxelinux.0:
   file.copy:
     - source: /usr/lib/PXELINUX/pxelinux.0
     - makedirs: True
-cp -rf /usr/lib/syslinux/modules/bios /srv/tftp/.:
+cp -rf /usr/lib/syslinux/modules/bios/* {{ basepath }}/.:
   cmd.run
 default_exists:
   file.touch:
-    - name: /srv/tftp/bios/pxelinux.cfg/default
+    - name: {{ basepath }}/pxelinux.cfg/default
     - makedirs: True
-/srv/tftp/bios/pxelinux.cfg/default:
+{{ basepath }}/pxelinux.cfg/default:
   file.blockreplace:
     - marker_start: "# START default"
     - marker_end: "# END default"
@@ -53,5 +55,5 @@ default_exists:
     - show_changes: True
     - append_if_not_found: True
     - content: |
-        /srv/tftp/    *(ro,no_subtree_check,no_root_squash,insecure)
+        {{ basepath }}    *(ro,no_subtree_check,no_root_squash,insecure)
 

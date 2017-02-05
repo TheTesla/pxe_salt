@@ -1,4 +1,6 @@
-/srv/tftp/sysimages/memtest:
+{% set basepath = '/srv/tftp' %}
+
+{{ basepath }}sysimages/memtest:
   archive.extracted:
     - source: http://www.memtest.org/download/5.01/memtest86+-5.01.zip
     - source_hash: 595679f5b6a34a92b1fe696554e4e0f4f44f12a4b1bb6e18283caaf1ef31b863 
@@ -9,7 +11,7 @@
 
 memtest_dir_create:
   file.directory:
-    - name: /srv/tftp/sysimages/memtest
+    - name: {{ basepath }}/sysimages/memtest
     - user: root
     - group: root
     - mode: 755
@@ -19,7 +21,7 @@ memtest_dir_create:
       - group
       - mode
 
-/srv/tftp/bios/sysimages/memtest:
+{{ basepath }}/sysimages/memtest:
   file.directory:
     - user: root
     - group: root
@@ -27,7 +29,7 @@ memtest_dir_create:
     - makedirs: True
 
 
-/srv/tftp/bios/pxelinux.cfg/default:
+{{ basepath }}/pxelinux.cfg/default:
   file.blockreplace:
     - marker_start: "# START memtest86+-5.01.bin"
     - marker_end: "# END memtest86+-5.01.bin"
@@ -37,6 +39,6 @@ memtest_dir_create:
         LABEL      memtest
         MENU LABEL ^Memtest86+ v5.01
         KERNEL     sysimages/memtest/memtest86plus501
-cp -afl /srv/tftp/sysimages/memtest/memtest86+-5.01.bin /srv/tftp/bios/sysimages/memtest/memtest86plus501:
+cp -afl {{ basepath }}/sysimages/memtest/memtest86+-5.01.bin {{ basepath }}/sysimages/memtest/memtest86plus501:
   cmd.run
 
