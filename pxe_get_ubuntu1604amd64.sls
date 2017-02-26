@@ -38,6 +38,14 @@ ubuntu_dir_create:
     - makedirs: True
 
 
+# create autoinstall preseed
+{{ basepath }}/sysimages/ubuntu_16_04_1_destop_amd64/preseed/ubuntu_16_04_1_destop_amd64_autoinstall_test.seed:
+  file.managed:
+    - source: salt://ubuntu_16_04_1_destop_amd64_autoinstall_test.seed
+    - user: root
+    - group: root
+    - mode: 644
+
 {{ basepath }}/pxelinux.cfg/default:
   file.blockreplace:
     - marker_start: "# START ubuntu_16_04_1_destop_amd64"
@@ -50,4 +58,7 @@ ubuntu_dir_create:
         KERNEL     sysimages/ubuntu_16_04_1_destop_amd64/casper/vmlinuz.efi
         APPEND     root=/dev/nfs nfsroot=172.23.92.251:{{ basepath }}/sysimages/ubuntu_16_04_1_destop_amd64 netboot=nfs ro file=/cdrom/sysimages/ubuntu_16_04_1_destop_amd64/preseed/ubuntu.seed boot=casper initrd=/sysimages/ubuntu_16_04_1_destop_amd64/casper/initrd.lz locale=de_DE bootkbd=de console-setup/layoutcode=de ip=dhcp -- 
  
-
+        LABEL      ubuntu16041amd64autoinst
+        MENU LABEL ^Ubuntu 16.04.1 amd64 - AUTOINSTALL 
+        KERNEL     sysimages/ubuntu_16_04_1_destop_amd64/casper/vmlinuz.efi
+        APPEND     root=/dev/nfs nfsroot=172.23.92.251:{{ basepath }}/sysimages/ubuntu_16_04_1_destop_amd64 netboot=nfs ro file=/cdrom/sysimages/ubuntu_16_04_1_destop_amd64/preseed/ubuntu_16_04_1_destop_amd64_autoinstall_test.seed boot=casper initrd=/sysimages/ubuntu_16_04_1_destop_amd64/casper/initrd.lz locale=de_DE bootkbd=de console-setup/layoutcode=de ip=dhcp -- 
