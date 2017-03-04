@@ -1,8 +1,8 @@
 {% set basepath = '/srv/tftp' %}
 {% set urlpath = 'http://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid' %}
-{% set isoname = 'debian-live-8.7.1-amd64-standard.iso' %}
-{% set sysdirname = 'debian-live-8.7.1-amd64-standard' %}
-{% set labelname = 'Debian Live 8.7.1 amd64 Standard' %}
+{% set isoname = 'debian-live-8.7.1-amd64-xfce-desktop.iso' %}
+{% set sysdirname = 'debian-live-8.7.1-amd64-xfce-desktop' %}
+{% set labelname = 'Debian Live 8.7.1 amd64 xfce' %}
 
 
 
