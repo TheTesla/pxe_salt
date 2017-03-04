@@ -1,11 +1,15 @@
+
+
+
+
 #### Contents of the preconfiguration file (for xenial)
 ### Localization
 # Preseeding only locale sets language, country and locale.
-d-i debian-installer/locale string de_DE
+d-i debian-installer/locale string de_DE.UTF-8
 
 # The values can also be preseeded individually for greater flexibility.
-#d-i debian-installer/language string en
-#d-i debian-installer/country string NL
+d-i debian-installer/language string de
+d-i debian-installer/country string DE
 #d-i debian-installer/locale string en_GB.UTF-8
 # Optionally specify additional locales to be generated.
 #d-i localechooser/supported-locales multiselect en_US.UTF-8, nl_NL.UTF-8
@@ -14,6 +18,8 @@ d-i debian-installer/locale string de_DE
 # Disable automatic (interactive) keymap detection.
 d-i console-setup/ask_detect boolean false
 d-i keyboard-configuration/xkb-keymap select de
+d-i debian-installer/keymap select de
+d-i keymap select de
 # To select a variant of the selected layout:
 #d-i keyboard-configuration/xkb-keymap select us(dvorak)
 # d-i keyboard-configuration/toggle select No toggling
@@ -114,9 +120,9 @@ d-i mirror/http/mirror select DE.archive.ubuntu.com
 # Suite to install.
 d-i mirror/suite string xenial
 # Suite to use for loading installer components (optional).
-#d-i mirror/udeb/suite string xenial
+d-i mirror/udeb/suite string xenial
 # Components to use for loading installer components (optional).
-#d-i mirror/udeb/components multiselect main, restricted
+d-i mirror/udeb/components multiselect main, restricted
 
 ### Account setup
 # Skip creation of a root account (normal user account will be able to
@@ -159,7 +165,7 @@ d-i clock-setup/utc boolean true
 
 # You may set this to any valid setting for $TZ; see the contents of
 # /usr/share/zoneinfo/ for valid values.
-d-i time/zone string DE/Berlin
+d-i time/zone string Europe/Berlin
 
 # Controls whether to use NTP to set the clock during the install
 d-i clock-setup/ntp boolean true
@@ -355,8 +361,12 @@ d-i apt-setup/backports boolean true
 d-i apt-setup/multiarch string i386
 
 
+### Disable language select question in installer
+d-i pkgsel/install-language-support boolean false
+
 ### Package selection
-tasksel tasksel/first multiselect ubuntu-desktop
+#tasksel tasksel/first multiselect ubuntu-desktop
+tasksel tasksel/first multiselect ubuntu-server
 #tasksel tasksel/first multiselect lamp-server, print-server
 #tasksel tasksel/first multiselect kubuntu-desktop
 
