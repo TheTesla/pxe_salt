@@ -1,3 +1,6 @@
+
+# IMPORTANT: install does not work - it wants to mount cdrom from /dev/sr0, but this is the local cd drive
+
 {% set basepath = '/srv/tftp' %}
 {% set urlpath = 'http://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid' %}
 {% set isoname = 'debian-live-8.7.1-amd64-xfce-desktop.iso' %}
@@ -48,3 +51,8 @@ cp -rf /mnt/{{ sysdirname }}/* {{ basepath }}/sysimages/{{ sysdirname }}/.:
         KERNEL     sysimages/{{ sysdirname }}/live/vmlinuz
         APPEND     root=/dev/nfs fetch=tftp://172.23.92.251/sysimages/{{ sysdirname }}/live/filesystem.squashfs netboot=nfs ro initrd=/sysimages/{{ sysdirname }}/live/initrd.img locale=de_DE bootkbd=de console-setup/layoutcode=de ip=dhcp boot=live -- 
  
+        LABEL      {{ sysdirname }}-install
+        MENU LABEL ^{{ labelname }} Install
+        KERNEL     sysimages/{{ sysdirname }}/install/vmlinuz
+        APPEND     root=/dev/nfs fetch=tftp://172.23.92.251/sysimages/{{ sysdirname }}/live/filesystem.squashfs netboot=nfs ro initrd=/sysimages/{{ sysdirname }}/install/initrd.gz locale=de_DE bootkbd=de console-setup/layoutcode=de ip=dhcp boot=live -- 
+
