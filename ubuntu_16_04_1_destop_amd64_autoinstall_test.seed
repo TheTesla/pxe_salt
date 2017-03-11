@@ -163,9 +163,16 @@ d-i user-setup/encrypt-home boolean false
 # Controls whether or not the hardware clock is set to UTC.
 d-i clock-setup/utc boolean true
 
+# checkboxes nonfree and updates
+ubiquity ubiquity/download_updates boolean true
+ubiquity ubiquity/use_nonfree boolean true
+
 # You may set this to any valid setting for $TZ; see the contents of
 # /usr/share/zoneinfo/ for valid values.
-d-i time/zone string Europe/Berlin
+#d-i time/zone string Europe/Berlin
+ubiquity        tzconfig/gmt    boolean false
+ubiquity time/zone select US/Pacific
+#ubiquity time/zone string Berlin
 
 # Controls whether to use NTP to set the clock during the install
 d-i clock-setup/ntp boolean true

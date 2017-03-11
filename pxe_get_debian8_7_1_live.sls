@@ -6,21 +6,11 @@
 
 
 
-{{ basepath }}/sysimages/{{ sysdirname }}:
-  file.directory:
-    - user: root
-    - group: root
-    - mode: 755
-    - makedirs: True
-    - recurse:
-      - user
-      - group
-      - mode
-
 {{ basepath }}/sysimages/{{ sysdirname }}/{{ isoname }}:
   file.managed:
     - source: {{ urlpath }}/{{ isoname }}
     - source_hash: {{ urlpath }}/SHA256SUMS
+    - makedirs: True
     - user: root
     - group: root
 
